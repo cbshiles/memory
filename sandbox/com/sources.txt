@@ -1,0 +1,8 @@
+./src/tools/ListTool.java
+./src/tools/FileTool.java
+./src/tools/BadCodeException.java
+./src/tools/StringTool.java
+./src/text/TextClassMap.java
+./src/text/TextClass.java
+./src/text/BasicTxt.java
+./src/TestDriver.java
