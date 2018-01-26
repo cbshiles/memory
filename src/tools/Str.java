@@ -2,7 +2,7 @@ package memory.tools;
 
 import java.util.List;
 
-public class StringTool{
+public class Str{
 
         public static String concat(List<String> lzt, String glue){
 	if (glue==null)glue="";

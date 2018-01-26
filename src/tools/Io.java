@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileTool {
+public class Io {
 
     private static BufferedReader getReader(String fname) throws IOException{
 	return Files.newBufferedReader(Paths.get(fname));
