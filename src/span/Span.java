@@ -1,6 +1,7 @@
-package memory.tools;
+package memory.span;
 
 import java.time.LocalDateTime;
+import memory.tools.*;
 
 /**
  * Class models a timespan, or period of time. 
@@ -10,16 +11,18 @@ import java.time.LocalDateTime;
 public class Span{
 
     public LocalDateTime start, end;
-    public Span periodicSpan;
+    public Cycle cycle;
     
     public Span(LocalDateTime s, LocalDateTime e){
 	this(s, e, null);
     }
 
-    public Span(LocalDateTime s, LocalDateTime e, Span period){
+    public Span(LocalDateTime s, LocalDateTime e, Cycle c){
 	start = s;
 	end = e;
-	periodicSpan = period;
+	cycle = c;
+	if (isCyclic())
+	    c.set(s);
     }
 
     public boolean hasStart(){
@@ -30,8 +33,8 @@ public class Span{
 	return end != null;
     }
 
-    public boolean isPeriodic(){
-	return periodicSpan != null;
+    public boolean isCyclic(){
+	return cycle != null;
     }
 
     /**
@@ -42,9 +45,9 @@ public class Span{
     public boolean isActive(LocalDateTime t){
 	if (! Time.isBetween(t, start, end))
 	    return false;
-	if (! isPeriodic())
+	if (! isCyclic())
 	    return true;
-	return periodicSpan.hasInner(t);
+	return cycle.isActive(t);
     }
 
     /**
@@ -52,14 +55,14 @@ public class Span{
      * @param in The Span to add 
      * @return boolean Whether the Span was sucessfully added
      */
-    public boolean add(Span in){
-	if (!overlap(in))
-	    return false;
-	if(Time.isBetween(start, in.start, in.end))
-	    in.start = start;
-	if(Time.isBetween(end, in.start, in.end))
-	    in.end = end;
-	innerSpans.add(in);
-	return true;
-    }
+    // public boolean add(Span in){
+    // 	if (!overlap(in))
+    // 	    return false;
+    // 	if(Time.isBetween(start, in.start, in.end))
+    // 	    in.start = start;
+    // 	if(Time.isBetween(end, in.start, in.end))
+    // 	    in.end = end;
+    // 	innerSpans.add(in);
+    // 	return true;
+    // }
 }

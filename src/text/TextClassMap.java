@@ -27,11 +27,11 @@ public class TextClassMap{
 
     public static List<TextClass> getAll(String path)throws Exception{
 	List<TextClass> texts = new ArrayList<>();
-	for (File file: FileTool.getFiles(path)){
+	for (File file: Io.getFiles(path)){
 	    String[] arr = file.getName().split("_");
 	    String className = arr[0];
 	    String id = (arr.length>1)?arr[1]:"";
-	    String body = FileTool.read(file.getAbsolutePath());
+	    String body = Io.read(file.getAbsolutePath());
 	    texts.add(get(className, id, body));
 	}
 	return texts;

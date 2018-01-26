@@ -1,1 +1,1 @@
-java -cp build/ memory.TestDriver
+java -cp "build/:resources/"  memory.test.TestDriver

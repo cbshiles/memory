@@ -3,11 +3,16 @@ package memory.tools;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Io {
+
+    public static Properties loadProperties(String fname)throws IOException{
+	Properties p = new Properties();
+	p.load(Io.class.getResourceAsStream("/"+fname));
+	return p;
+    }
 
     private static BufferedReader getReader(String fname) throws IOException{
 	return Files.newBufferedReader(Paths.get(fname));
@@ -20,7 +25,7 @@ public class Io {
     public static String read(String fname) throws IOException{
 	BufferedReader reader = getReader(fname);
 	List<String> lines = reader.lines().collect(Collectors.toList());
-	return StringTool.concat(lines, "\n");
+	return Str.concat(lines, "\n");
     }
 
     public static void write(String fname, String content, boolean append) throws IOException{
