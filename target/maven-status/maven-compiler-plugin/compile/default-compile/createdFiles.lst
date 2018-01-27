@@ -1,0 +1,11 @@
+memory/TestDriver.class
+memory/tools/Io.class
+memory/text/BasicTxt.class
+memory/span/Cycle.class
+memory/tools/Str.class
+memory/tools/Time.class
+memory/span/Span.class
+memory/tools/BadCodeException.class
+memory/text/TextClass.class
+memory/tools/Lzt.class
+memory/text/TextClassMap.class

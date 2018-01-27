@@ -1,4 +1,4 @@
-package memory.test;
+package memory;
 
 import java.io.IOException;
 import memory.tools.*;

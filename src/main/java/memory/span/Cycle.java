@@ -7,6 +7,8 @@ import java.time.*;
  */
 public class Cycle {
 
+    //check out https://stackoverflow.com/questions/28963110/what-is-the-difference-of-using-temporalamount-or-temporalunit-in-java-8
+    
     public boolean isActive(LocalDateTime t){
 	return true;
     }
