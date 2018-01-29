@@ -59,4 +59,23 @@ public class Io {
 	write(fname, content, false);
 	return true;
     }
+
+    /**
+     * Create a directory with the given name. Does nothing if already exists.
+     */
+    public static void mkdir(String name){
+	new File(name).mkdir();
+    }
+
+    /**
+     * Delete a certain file. Good for normal files and empty directories.
+     */
+    public static void delete(String name){
+	new File(name).delete();
+    }
+
+    public static List<String> ls(String name){
+	return Arrays.asList(new File(name).list());
+    }
+
 }
