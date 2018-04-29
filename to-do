@@ -1,0 +1,3 @@
+change the classs structure, remove note & the really simple note, now they derive from nonbasictext - still need to provide a list of classes to the map / perhaps create an enum
+
+whats a good way to map the commands?

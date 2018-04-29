@@ -18,7 +18,7 @@ public class Membrane{
     }
 
     void modifyNote(String id)throws Exception{
-
+	//open up emacs or something? (no, not on the membrane level, use whatever calls this actually)
     }
 
     Note getNote(String id) throws Exception{
