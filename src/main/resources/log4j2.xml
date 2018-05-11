@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <RollingFile name="FileAppender" fileName="logs/memory.log" append="true" filePattern="logs/memory.%i.log.gz">
+      <Policies>
+	<SizeBasedTriggeringPolicy size="100 KB" />
+      </Policies>
+      <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+<DefaultRolloverStrategy max="50" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="all">
+      <AppenderRef ref="FileAppender" level="all"/>
+    </Root>
+  </Loggers>
+</Configuration>
