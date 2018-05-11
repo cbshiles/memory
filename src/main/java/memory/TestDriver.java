@@ -1,5 +1,5 @@
 package memory;
-
+import java.io.*;
 import java.io.IOException;
 
 import org.apache.logging.log4j.Logger;
@@ -8,9 +8,10 @@ import org.apache.logging.log4j.LogManager;
 
 
 import memory.tools.*;
-import memory.tui.Tui;
+import memory.tui.*;
 import memory.text.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class TestDriver{
 
@@ -23,21 +24,32 @@ public class TestDriver{
     public static Tui tui;
     
     public static void main(String[] args) throws Exception{
-    	
+
     	log.trace("dog");
 
+	BufferedReader errinput = null;
 	try {
-	Properties props = Io.loadProperties(configFile);
-	String storageRoot = props.getProperty("storage_root");
-	String home = props.getProperty("homepage");
-	System.out.println(".-->"+storageRoot);
-	//System.out.println(TextClassMap.getAll(storageRoot));
+	    Properties props = Io.loadProperties(configFile);
+	    String storageRoot = props.getProperty("storage_root");
+	    String home = props.getProperty("homepage");
+	    System.out.println(".-->"+storageRoot);
+	    //System.out.println(TextClassMap.getAll(storageRoot));
 
-	tui = new Tui(storageRoot, home);
-	tui.start();
+	    // Process emacs = Runtime.getRuntime().exec("emacs -nw");
+	    // emacs.waitFor();
+	    // ErrorBuffer.store("emacs is alive: "+emacs.isAlive());
+	    // errinput = new BufferedReader(new InputStreamReader(emacs.getErrorStream()));
+	    
+	    tui = new Tui(storageRoot, home);
+	    tui.start();
 	} catch (Exception ex){
 	    if (tui != null) tui.close();
-	    System.out.println(ex);
+	    log.error(ex.getStackTrace().toString());
+	}
+	//System.out.println(ErrorBuffer.store);
+	String add = "";
+	while (errinput.ready()){
+	    log.info(errinput.readLine());
 	}
     }
 }
