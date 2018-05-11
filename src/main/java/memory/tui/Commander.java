@@ -25,7 +25,14 @@ public class Commander{
 		if (p.isFolder){
 		    md.setPath(p.fullName);
 		} else {
-		    Runtime.getRuntime().exec("emacs "+p.fullName);
+		    Process emacs = Runtime.getRuntime().exec("emacsclient "+p.fullName);
+		    ErrorBuffer.store("emacs is alive: "+emacs.isAlive());
+		    BufferedReader errinput = new BufferedReader(new InputStreamReader(emacs.getErrorStream()));
+		    String add = "";
+		    while (errinput.ready()){
+			add += errinput.readLine();
+		    }
+		    ErrorBuffer.store(add);
 		}
 		ErrorBuffer.set(p.name);
 	    } catch (NumberFormatException ex){

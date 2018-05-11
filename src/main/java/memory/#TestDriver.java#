@@ -24,13 +24,13 @@ public class TestDriver{
 	    System.out.println(".-->"+storageRoot);
 	    //System.out.println(TextClassMap.getAll(storageRoot));
 
-	    // Process emacs = Runtime.getRuntime().exec("emacs -nw");
-	    // emacs.waitFor();
-	    // ErrorBuffer.store("emacs is alive: "+emacs.isAlive());
-	    // errinput = new BufferedReader(new InputStreamReader(emacs.getErrorStream()));
+	    Process emacs = Runtime.getRuntime().exec("emacs -nw");
+	    emacs.waitFor();
+	    ErrorBuffer.store("emacs is alive: "+emacs.isAlive());
+	    errinput = new BufferedReader(new InputStreamReader(emacs.getErrorStream()));
 	    
-	    tui = new Tui(storageRoot, home);
-	    tui.start();
+	    // tui = new Tui(storageRoot, home);
+	    // tui.start();
 	} catch (Exception ex){
 	    if (tui != null) tui.close();
 	    ex.printStackTrace();
