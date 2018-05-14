@@ -7,7 +7,7 @@ import java.util.*;
 
 public class MainDisplay {
 
-    String root, path;
+    public String root, path;
     StringBuilder sb = new StringBuilder();
     int lc = 0; //line count
     public Label label = new Label("");

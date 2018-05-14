@@ -5,19 +5,37 @@ import java.util.*;
 import memory.note.Pointer;
 import memory.tools.*;
 import java.io.*;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class Commander{
 
     public MainDisplay md;
 
+    private static final Logger log = LogManager.getLogger(Commander.class);
+
     public Commander(MainDisplay m){
 	md = m;
     }
 
-    public void cmd(String[] args){
+    public void writeTmp(String content) throws IOException{
+	Io.write("/tmp/memory.tmp", content, false);
+    }
+
+    public void cmd(String[] args)throws IOException{
 	char firstChar = args[0].charAt(0);
 	if (Character.isLetter(firstChar)){
-	    ErrorBuffer.set("letter");
+	    switch (args[0]){
+	    case "exit":
+		writeTmp("EXIT");
+		throw new BadCodeException("Exiting memory.");
+	    case "new":
+		writeTmp(md.path+"/"+args[1]);
+		throw new BadCodeException("RUNNING EMACS");
+	    default:
+		ErrorBuffer.set("letter");
+	    }
 	} else if (Character.isDigit(firstChar)){
 	    try {
 		int x = Integer.parseInt(args[0]);
@@ -25,22 +43,12 @@ public class Commander{
 		if (p.isFolder){
 		    md.setPath(p.fullName);
 		} else {
-		    Process emacs = Runtime.getRuntime().exec("emacsclient "+p.fullName);
-		    ErrorBuffer.store("emacs is alive: "+emacs.isAlive());
-		    BufferedReader errinput = new BufferedReader(new InputStreamReader(emacs.getErrorStream()));
-		    String add = "";
-		    while (errinput.ready()){
-			add += errinput.readLine();
-		    }
-		    ErrorBuffer.store(add);
+		    writeTmp(p.fullName);
+		    throw new BadCodeException("RUNNING EMACS");
 		}
 		ErrorBuffer.set(p.name);
 	    } catch (NumberFormatException ex){
 		ErrorBuffer.set("Invalid number: "+args[0]);
-	    } catch (BadCodeException ex){
-		ErrorBuffer.set(ex.toString());
-	    } catch (IOException ex){
-		ErrorBuffer.set(ex.toString());
 	    }
 	} else {
 	    ErrorBuffer.set("atm, commands must start w/ letter or digit");
