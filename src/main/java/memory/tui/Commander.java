@@ -23,9 +23,19 @@ public class Commander{
 	Io.write("/tmp/memory.tmp", content, false);
     }
 
+    private Pointer getPointer(String x){ //get pointer file from menu #
+	try {
+	    return md.getPointer(Integer.parseInt(x));
+	} catch(NumberFormatException ex){
+	    ErrorBuffer.set(x+" is not a valid number");
+	    return null;
+	}
+    }
+
     public void cmd(String[] args)throws IOException{
 	char firstChar = args[0].charAt(0);
 	if (Character.isLetter(firstChar)){
+	    Pointer p; //meh
 	    switch (args[0]){
 	    case "exit":
 		writeTmp("EXIT");
@@ -33,8 +43,17 @@ public class Commander{
 	    case "new":
 		writeTmp(md.path+"/"+args[1]);
 		throw new BadCodeException("RUNNING EMACS");
+	    case "rm":
+		p = getPointer(args[1]);
+		if (p == null){
+		    ErrorBuffer.set("Could not delete "+args[1]);
+		} else {
+		    Io.delete(p.fullName);
+		    ErrorBuffer.set("Deleted "+p.name);
+		}
+		break;
 	    default:
-		ErrorBuffer.set("letter");
+		ErrorBuffer.set("Unknown command: "+args[0]);
 	    }
 	} else if (Character.isDigit(firstChar)){
 	    try {

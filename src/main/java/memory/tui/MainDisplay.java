@@ -48,7 +48,8 @@ public class MainDisplay {
 
     public Pointer getPointer(int index){
 	if (index < 0 || index >= pointers.size()){
-	    throw new BadCodeException("There is no item "+index+" on this list.");
+	    ErrorBuffer.set("There is no item "+index+" on this list.");
+	    return null;
 		}
 	return pointers.get(index);
     }

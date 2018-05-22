@@ -1,6 +1,6 @@
-java -jar target/memory-0.0.0-SNAPSHOT.jar
-
+snap=target/memory-0.0.0-SNAPSHOT.jar
 loop=true
+java -jar $snap 2>> logs/error.log
 
 while [ "$loop" = "true" ]
 do
@@ -10,11 +10,6 @@ do
 	loop=false
     else
 	emacs $content
-	java -jar target/memory-0.0.0-SNAPSHOT.jar
+	java -jar $snap 2>> logs/error.log
     fi
 done
-
-
-# write the command to a file (from java)
-# have the script read the file and open emacs from that
-# rerun the java command

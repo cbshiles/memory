@@ -1,5 +1,8 @@
 package memory.tools;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,6 +11,8 @@ import java.util.stream.Collectors;
 
 public class Io {
 
+    private static final Logger log = LogManager.getLogger(Io.class);
+    
 	public static Properties loadProperties(String fname) throws IOException {
 		Properties p = new Properties();
 		p.load(Io.class.getResourceAsStream("/" + fname));
@@ -73,6 +78,7 @@ public class Io {
 	 */
 	public static void delete(String name) {
 		new File(name).delete();
+		log.info("Deleted "+name);
 	}
 
 	public static List<String> ls(String name) {
